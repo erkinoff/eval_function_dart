@@ -1,4 +1,4 @@
-/// Satrdagi ifodani hisoblash
+/// Satrdagi ifodani hisoblash | Calculating an expression in a string
 
 import 'dart:io';
 import 'dart:math';
