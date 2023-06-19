@@ -8,13 +8,23 @@ void main(List<String> args) async {
   print(evaluateExpression(expression));
 }
 
+/// Birinchi har bir amalning orasiga bo'sh joy qo'yiladi keyin o'sha bo'sh
+/// joylar orqali ajratiladi
+String addSpace(String expression) {
+  return expression.replaceAllMapped(
+      RegExp(r"[\(\)*\-+/^%]"), (match) => " ${match.group(0)} ");
+}
+
 num evaluateExpression(String expression) {
   num? result = num.tryParse(expression);
   if (result != null) {
     return result;
   }
 
-  List<String> tokens = expression.split(' ');
+  expression = addSpace(expression);
+
+  List<String> tokens = expression.split(' ')
+    ..removeWhere((element) => element.isEmpty);
 
   List<num> numbers = [];
   List<String> operators = [];
@@ -77,7 +87,7 @@ num evaluateExpression(String expression) {
       }
       operators.removeLast();
     } else {
-      numbers.add(double.parse(token));
+      numbers.add(num.parse(token));
     }
   }
 
